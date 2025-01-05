@@ -1,0 +1,72 @@
+.start {
+    margin-top: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text {
+    padding-left: 10px;
+    padding-right: 20px;
+}
+
+.text p {
+    margin-bottom: 40px;
+    font-size: 20px;
+    text-align: justify;
+}
+
+h1 {
+    font-size: 40px;
+    text-align: center;
+}
+
+.image {
+    margin-top: 50px;
+}
+
+.title {
+    margin: 60px;
+}
+
+.boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+}
+
+.box {
+    box-sizing: border-box;
+    max-width: 45%;
+    margin: 0 auto;
+    justify-content: center;
+    padding: 15px;
+    border-radius: 50px;
+    display: flex;
+}
+
+#pets {
+    margin-inline: 400px;
+}
+
+#pet {
+    flex: 1 1 calc(50% - 20px);
+    background-color: lightgreen;
+}
+
+.box img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.box p {
+    padding-top: 45px;
+    padding-left: 15px;
+    font-size: 30px;
+}
+
+#service {
+    background-color: lightblue;
+}
