@@ -1,0 +1,52 @@
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+}
+
+.logo, .menu {
+    display: flex;
+    align-items: center;
+}
+
+.menu {
+    margin-left: auto;
+    padding-right: 150px;
+}
+
+.menu a {
+    margin: 0 10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: inherit;
+    font-size: large;
+    background-color: #424141;
+    border-radius: 20px;
+}
+
+img {
+    width: 80px;
+    height: 80px;
+    margin-left: 20px;
+}
+
+h1 {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column; /* Alinha o h2 abaixo do h1 */
+}
+
+h2 {
+    margin: 0;
+    padding-left: 30px;
+    font-size: 1.2em;
+}
