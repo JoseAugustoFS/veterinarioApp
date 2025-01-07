@@ -1,0 +1,26 @@
+<p>Nesta área é possível ver, cadastrar, editar e exluir pets no sistema.</p>
+<div class="container">
+    <button >Adicionar Pet</button>
+    <div class="pets">
+        @for (pet of pets; track pet.id){
+            <div class="pet">
+                <div class="icon">
+                    <img [src]="getImage(pet.type)" alt="Foto do pet" />
+                </div>
+                <div class="description">
+                    <p>Nome: {{ pet.name }}</p>
+                    <p>Gênero: {{ pet.gender === "M" ? "Macho" : "Fêmea" }}</p>
+                    <p>Reça: {{ pet.race }}</p>
+                    <p>Idade: {{ pet.age }} anos</p>
+                    <p>Peso: {{ pet.weight }} Kg</p>
+                    <p>Dono: {{ pet.owner }}</p>
+                </div>
+                <div class="actions">
+                    <button (click)="editPet(pet)">Editar</button>
+                    <button (click)="deletePet(pet)">Excluir</button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
