@@ -42,15 +42,11 @@ h1 {
 
 .logo-text {
     display: flex;
-    flex-direction: column; /* Alinha o h2 abaixo do h1 */
+    flex-direction: column;
 }
 
 h2 {
     margin: 0;
     padding-left: 30px;
     font-size: 1.2em;
-}
-
-hr {
-    margin-bottom: 170px;
 }

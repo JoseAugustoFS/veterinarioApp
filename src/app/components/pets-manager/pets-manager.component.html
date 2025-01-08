@@ -1,6 +1,7 @@
-<p>Nesta área é possível ver, cadastrar, editar e exluir pets no sistema.</p>
+<h1>Nesta área é possível ver, cadastrar, editar e exluir pets no sistema.</h1>
 <div class="container">
-    <button >Adicionar Pet</button>
+    <button mat-raised-button (click)="openDialog()">Cadastrar Pet</button>
+    <h2>Pets cadastrados:</h2>
     <div class="pets">
         @for (pet of pets; track pet.id){
             <div class="pet">
@@ -11,7 +12,7 @@
                     <p>Nome: {{ pet.name }}</p>
                     <p>Gênero: {{ pet.gender === "M" ? "Macho" : "Fêmea" }}</p>
                     <p>Reça: {{ pet.race }}</p>
-                    <p>Idade: {{ pet.age }} anos</p>
+                    <p>Idade: {{ getPetAge(pet) }}</p>
                     <p>Peso: {{ pet.weight }} Kg</p>
                     <p>Dono: {{ pet.owner }}</p>
                 </div>
@@ -21,6 +22,10 @@
                 </div>
             </div>
         }
+        @empty {
+            <p>Nenhum pet cadastrado.</p>
+        }
+
 
     </div>
 </div>

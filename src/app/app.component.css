@@ -1,0 +1,11 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.center {
+    padding-top: 169px;
+    min-height: calc(100vh - 290px); /* Ajuste a altura conforme necessário */
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,47 @@
+<div class="box">
+    <p><strong> Preencha os dados do novo pet </strong></p>
+    <form [formGroup]="addPetForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="name">Nome:</label>
+            <input id="name" formControlName="name" type="text">
+        </div>
+        <div>
+            <label for="gender">Gênero:</label>
+            <select id="gender" formControlName="gender">
+                <option value="M">Macho</option>
+                <option value="F">Fêmea</option>
+            </select>
+        </div>
+        <div>
+            <label for="type">Tipo:</label>
+            <select id="type" formControlName="type">
+                <option value="dog">Cachorro</option>
+                <option value="cat">Gato</option>
+                <option value="rabbit">Coelho</option>
+                <option value="bird">Ave</option>
+                <option value="fish">Peixe</option>
+                <option value="reptile">Réptil</option>
+            </select>
+        </div>
+        <div>
+            <label for="dateBirth">Data de nascimento:</label>
+            <input id="dateBirth" formControlName="dateBirth" type="date">
+        </div>
+        <div>
+            <label for="owner">Dono:</label>
+            <input id="owner" formControlName="owner" type="text">
+        </div>
+        <div>
+            <label for="race">Raça:</label>
+            <input id="race" formControlName="race" type="text">
+        </div>
+        <div>
+            <label for="weight">Peso:</label>
+            <input id="weight" formControlName="weight" type="number">
+        </div>
+        <button type="submit">Cadastrar Pet</button>
+    </form>
+</div>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>X</button>
+</mat-dialog-actions>

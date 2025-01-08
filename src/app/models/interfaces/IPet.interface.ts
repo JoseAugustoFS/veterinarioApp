@@ -3,8 +3,15 @@ export interface IPet {
     name: string;
     gender: "M" | "F";
     type: string;
-    age: number;
+    dateBirth: Date;
     owner: string;
     race: string;
     weight: number;
+
+    getAge(): string;
+
+    canShower(): boolean;
+
+    canGrooming(): boolean;
+
 }

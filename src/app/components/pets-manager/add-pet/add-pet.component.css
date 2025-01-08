@@ -1,0 +1,78 @@
+::ng-deep .mat-mdc-dialog-surface {
+    --mdc-dialog-container-color: #c9e4d9;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+mat-dialog-actions {
+    margin: 0 0 auto 0;
+    padding: 0 10px 0 0;
+    button {
+        background: lightcoral;
+        border: 1px solid black;
+        border-radius: 100px;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+
+.box {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-left: 20px;
+    text-align: center;
+}
+
+.box p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    margin-top: 0;
+    color: #333;
+}
+
+.box form div {
+    margin-bottom: 15px;
+}
+
+.box label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.box input,
+.box select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.box button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.box button:hover {
+    background-color: #45a049;
+}
+
+.box input.ng-touched.ng-invalid,
+.box select.ng-touched.ng-invalid {
+    border: 1px solid red;
+}
+
+.box input.ng-touched.ng-valid,
+.box select.ng-touched.ng-valid {
+    border: 1px solid green;
+}

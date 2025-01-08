@@ -1,106 +1,129 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Pet } from '../../models/pet.model';
 import { IPet } from '../../models/interfaces/IPet.interface';
+
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { AddPetComponent } from './add-pet/add-pet.component';
 
 @Component({
   selector: 'app-pets-manager',
-  imports: [],
+  imports: [MatDialogModule],
   templateUrl: './pets-manager.component.html',
   styleUrl: './pets-manager.component.css'
 })
 export class PetsManagerComponent {
 
-  public pets: Array<IPet> = [
-    {
-      id: 1,
-      name: 'Rex',
-      gender: 'M',
-      type: 'dog',
-      age: 5,
-      owner: 'João',
-      race: 'Pastor Alemão',
-      weight: 12
-    },
-    {
-      id: 2,
-      name: 'Tom',
-      gender: 'F',
-      type: 'cat',
-      age: 7,
-      owner: 'Lucas',
-      race: 'SRD',
-      weight: 3
-    },
-  {
-    id: 3,
-    name: 'Bella',
-    gender: 'F',
-    type: 'dog',
-    age: 3,
-    owner: 'Maria',
-    race: 'Labrador',
-    weight: 20
-  },
-  {
-    id: 4,
-    name: 'Max',
-    gender: 'M',
-    type: 'dog',
-    age: 4,
-    owner: 'Carlos',
-    race: 'Bulldog',
-    weight: 18
-  },
-  {
-    id: 5,
-    name: 'Luna',
-    gender: 'F',
-    type: 'cat',
-    age: 2,
-    owner: 'Ana',
-    race: 'Persian',
-    weight: 4
-  },
-  {
-    id: 6,
-    name: 'Charlie',
-    gender: 'M',
-    type: 'dog',
-    age: 6,
-    owner: 'Pedro',
-    race: 'Beagle',
-    weight: 10
-  },
-  {
-    id: 7,
-    name: 'Milo',
-    gender: 'M',
-    type: 'cat',
-    age: 1,
-    owner: 'Fernanda',
-    race: 'Siamese',
-    weight: 3
-  },
-  {
-    id: 8,
-    name: 'Lucy',
-    gender: 'F',
-    type: 'dog',
-    age: 5,
-    owner: 'Roberto',
-    race: 'Poodle',
-    weight: 8
-  },
-  {
-    id: 9,
-    name: 'Simba',
-    gender: 'M',
-    type: 'cat',
-    age: 4,
-    owner: 'Juliana',
-    race: 'Maine Coon',
-    weight: 6
+  readonly dialog = inject(MatDialog);
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddPetComponent, {
+      width: '400px',
+      height: '650px',
+      panelClass: 'modal',
+      data: {name: 'teste'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
+
+  public pets: Array<IPet> = [
+      new Pet(
+        1,
+        'Rex',
+        'M',
+        'dog',
+        new Date('2016-01-01'),
+        'João',
+        'Pastor Alemão',
+        12
+      ),
+      new Pet(
+        2,
+        'Tom',
+        'F',
+        'cat',
+        new Date('2014-01-01'),
+        'Lucas',
+        'SRD',
+        3
+      ),
+      new Pet(
+        3,
+        'Bella',
+        'F',
+        'dog',
+        new Date('2018-01-01'),
+        'Maria',
+        'Labrador',
+        20
+      ),
+      new Pet(
+        4,
+        'Max',
+        'M',
+        'dog',
+        new Date('2017-01-01'),
+        'Carlos',
+        'Bulldog',
+        18
+      ),
+      new Pet(
+        5,
+        'Luna',
+        'F',
+        'cat',
+        new Date('2019-01-01'),
+        'Ana',
+        'Persian',
+        4
+      ),
+      new Pet(
+        6,
+        'Charlie',
+        'M',
+        'dog',
+        new Date('2015-01-01'),
+        'Pedro',
+        'Beagle',
+        10
+      ),
+      new Pet(
+        7,
+        'Milo',
+        'M',
+        'cat',
+        new Date('2020-01-01'),
+        'Fernanda',
+        'Siamese',
+        3
+      ),
+      new Pet(
+        8,
+        'Lucy',
+        'F',
+        'dog',
+        new Date('2016-01-01'),
+        'Roberto',
+        'Poodle',
+        8
+      ),
+      new Pet(
+        9,
+        'Simba',
+        'M',
+        'cat',
+        new Date('2017-01-01'),
+        'Juliana',
+        'Maine Coon',
+        6
+      )
   ]
+
+  public getPetAge(pet: IPet): string{
+    return pet.getAge();
+  }
 
   public editPet(pet: IPet): void {
     
