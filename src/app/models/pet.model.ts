@@ -15,11 +15,17 @@ export class Pet implements IPet {
     public getAge(): string {
         let date = new Date();
         let year = date.getFullYear() - this.dateBirth.getFullYear();
-        let month = date.getMonth() - this.dateBirth.getMonth();
-        let yearSufix = year > 1 ? 'anos' : 'ano';
-        let monthSufix = month > 1 ? 'meses' : 'mes';
-
-        return year > 0 ? `${year} ${yearSufix}` : `${month} ${monthSufix}`;
+        if(year > 1) {
+            return `${year} anos`;
+        }else if(year === 1 && date.getMonth() === this.dateBirth.getMonth()) {
+            return `${year} ano`;
+        }else if(date.getMonth() != this.dateBirth.getMonth()){
+            let monthDiference = date.getMonth() - this.dateBirth.getMonth() + 12;
+            return `${monthDiference} meses`;
+        }else {
+            let days = date.getDay() - this.dateBirth.getDay();
+            return days > 1 ? `${days} dias` : "1 dia";
+        }
     }
     public canShower(): boolean {
         return true;

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { DateValidator } from '../../../shared/DateValidator';
 
 
 
@@ -11,27 +12,25 @@ import { MatDialogModule } from '@angular/material/dialog';
   styleUrl: './add-pet.component.css'
 })
 export class AddPetComponent {
+  readonly dialogRef = inject(MatDialogRef<AddPetComponent>);
 
   addPetForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.addPetForm = this.fb.group({
-      id: ['', Validators.required],
-      name: ['', Validators.required],
-      gender: ['', Validators.required],
-      type: ['', Validators.required],
-      dateBirth: ['', Validators.required],
-      owner: ['', Validators.required],
-      race: ['', Validators.required],
-      weight: ['', Validators.required]
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
+      gender: ['', [Validators.required, Validators.pattern(/^(M|F)$/)]],
+      type: ['', [Validators.required,, Validators.pattern(/^(dog|cat|rabbit|bird|fish|reptile)$/)]],
+      dateBirth: ['', [Validators.required, DateValidator()]],
+      owner: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      race: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
+      weight: ['', [Validators.required, Validators.min(0.1), Validators.max(100)]]
     });
   }
 
   onSubmit() {
     if (this.addPetForm.valid) {
-      console.log(this.addPetForm.value);
-    } else {
-      console.log('Form is invalid');
+      this.dialogRef.close(this.addPetForm.value);
     }
   }
 

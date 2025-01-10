@@ -10,5 +10,9 @@ export const routes: Routes = [
     {
         path: 'pets',
         component: PetsManagerComponent,
-    }
+    },
+    {
+        path: '**', 
+        redirectTo: ''
+    },
 ];

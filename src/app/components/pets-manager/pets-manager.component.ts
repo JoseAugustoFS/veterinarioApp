@@ -4,30 +4,22 @@ import { IPet } from '../../models/interfaces/IPet.interface';
 
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { AddPetComponent } from './add-pet/add-pet.component';
+import { EditPetComponent } from './edit-pet/edit-pet.component';
+import { DeletePetComponent } from './delete-pet/delete-pet.component';
 
 @Component({
   selector: 'app-pets-manager',
   imports: [MatDialogModule],
   templateUrl: './pets-manager.component.html',
-  styleUrl: './pets-manager.component.css'
+  styleUrl: './pets-manager.component.css',
+  
 })
 export class PetsManagerComponent {
 
-  readonly dialog = inject(MatDialog);
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(AddPetComponent, {
-      width: '400px',
-      height: '650px',
-      panelClass: 'modal',
-      data: {name: 'teste'}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
-
+  readonly dialogAddPet = inject(MatDialog);
+  readonly dialogEditPet = inject(MatDialog);
+  readonly dialogDeletePet = inject(MatDialog);
+  
   public pets: Array<IPet> = [
       new Pet(
         1,
@@ -124,13 +116,51 @@ export class PetsManagerComponent {
   public getPetAge(pet: IPet): string{
     return pet.getAge();
   }
+  
+  public addPet(): void {
+    const dialogRef = this.dialogAddPet.open(AddPetComponent, {
+      width: '400px',
+      height: '650px'
+    });
 
-  public editPet(pet: IPet): void {
-    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.pets.push(new Pet(this.pets[this.pets.length-1].id+1, result.name, result.gender, result.type, new Date(result.dateBirth), result.owner, result.race, result.weight));
+      }
+    });
   }
 
+  public editPet(pet: IPet): void {
+    const dialogRef = this.dialogEditPet.open(EditPetComponent, {
+      width: '400px',
+      height: '650px',
+      data: pet
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if(result) {
+        this.pets.map((petIterator) => {
+          petIterator.id === result.id ? 
+          this.pets[petIterator.id-1] = new Pet(result.id, result.name, result.gender, result.type, new Date(result.dateBirth), result.owner, result.race, result.weight) : 
+          petIterator;
+        });  
+      }
+    });
+  }
+
+
   public deletePet(pet: IPet): void {
-    
+    const dialogRef = this.dialogDeletePet.open(DeletePetComponent, {
+      width: '300px',
+      height: '200px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.pets = this.pets.filter(p => p.id !== pet.id);
+      }
+    });
   }
 
   public getImage (type: string): string {
