@@ -3,6 +3,7 @@
     <button mat-raised-button (click)="addPet()">Cadastrar Pet</button>
     <h2>Pets cadastrados:</h2>
     <div class="pets">
+        @defer (when pets) {
         @for (pet of pets; track pet.id){
             <div class="pet">
                 <div class="icon">
@@ -25,7 +26,9 @@
         @empty {
             <p>Nenhum pet cadastrado.</p>
         }
-
+    }@placeholder() {
+        <img src="../../../assets/gif/loading.gif" alt="Loading">
+    }
 
     </div>
 </div>

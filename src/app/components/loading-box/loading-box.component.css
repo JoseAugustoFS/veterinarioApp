@@ -1,0 +1,7 @@
+::ng-deep .mat-mdc-dialog-surface {
+    --mdc-dialog-container-color: none;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}

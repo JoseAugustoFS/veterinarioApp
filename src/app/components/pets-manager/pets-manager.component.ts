@@ -7,6 +7,7 @@ import { AddPetComponent } from './add-pet/add-pet.component';
 import { EditPetComponent } from './edit-pet/edit-pet.component';
 import { DeletePetComponent } from './delete-pet/delete-pet.component';
 import { PetsService } from '../../services/pets.service';
+import { LoadingBoxComponent } from '../loading-box/loading-box.component';
 
 @Component({
   selector: 'app-pets-manager',
@@ -20,8 +21,9 @@ export class PetsManagerComponent implements OnInit {
   readonly dialogAddPet = inject(MatDialog);
   readonly dialogEditPet = inject(MatDialog);
   readonly dialogDeletePet = inject(MatDialog);
+  readonly dialogLoading = inject(MatDialog);
   private PetsService = inject(PetsService);
-  public pets: Pet[] = [];
+  public pets: Pet[] | null = null;
 
   ngOnInit(): void {
     this.loadPets();
@@ -44,8 +46,10 @@ export class PetsManagerComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
+        this.loadingBox();
         this.PetsService.addPet(new Pet(0, result.name, result.gender, result.type, new Date(result.dateBirth), result.owner, result.race, result.weight)).then(() => {
           this.loadPets();
+          this.dialogLoading.closeAll();
         });
       }
     });
@@ -59,10 +63,11 @@ export class PetsManagerComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if(result) {
+        this.loadingBox();
         this.PetsService.updatePet(result as IPet).then(() => {
           this.loadPets();
+          this.dialogLoading.closeAll();
         });
       }
     });
@@ -77,8 +82,10 @@ export class PetsManagerComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
+        this.loadingBox();
         this.PetsService.deletePet(pet.id).then(() => {
             this.loadPets();
+            this.dialogLoading.closeAll();
         })
       }
     });
@@ -87,5 +94,15 @@ export class PetsManagerComponent implements OnInit {
   public getImage (type: string): string {
     return `../../../assets/svg/${type}.svg`;
   }
+
+  public loadingBox(): void{
+    const dialogRef = this.dialogLoading.open(LoadingBoxComponent, {
+      width: '400px',
+      height: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {});
+  }
+
 
 }
