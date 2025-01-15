@@ -2,8 +2,9 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DateValidator } from '../../../shared/DateValidator';
-import { IPet } from '../../../models/interfaces/IPet.interface';
+import { IPet } from '../../../interfaces/IPet.interface';
 import { DatePipe } from '@angular/common';
+import { PetsService } from '../../../services/pets.service';
 
 @Component({
   selector: 'app-edit-pet',
@@ -14,8 +15,10 @@ import { DatePipe } from '@angular/common';
 export class EditPetComponent {
 
   private dialogRef = inject(MatDialogRef<EditPetComponent>);
+  private PetsService = inject(PetsService)
   public pet = inject<IPet>(MAT_DIALOG_DATA);
   public editPetForm: FormGroup;
+  public repeatedName: boolean = false;
 
   constructor(private fb: FormBuilder, private datepipe: DatePipe) {
     this.editPetForm = this.fb.group({
@@ -31,10 +34,18 @@ export class EditPetComponent {
   }
 
   onSubmit() {
-    if (this.editPetForm.valid) {
-      this.dialogRef.close(this.editPetForm.value);
-    }
+    this.checkRepeatedName().then(() => {
+      if (this.editPetForm.valid && !this.repeatedName) {
+        this.dialogRef.close(this.editPetForm.value);
+      }
+    });
+    
   }
 
+  public async checkRepeatedName(): Promise<void> {
+    let pets: IPet[] = await this.PetsService.getPetsByOwner(this.editPetForm.value.owner);
+    pets=pets.filter(pet => pet.name!==this.pet.name);
+    this.repeatedName = pets.some(pet => pet.name===this.editPetForm.value.name);
+  }
 
 }

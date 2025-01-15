@@ -4,6 +4,9 @@
         <div>
             <label for="name">Nome:</label>
             <input id="name" formControlName="name" type="text">
+            @if(repeatedName){
+                <p class="alert">Nome repetido!</p>
+            }
         </div>
         <div>
             <label for="gender">Gênero:</label>

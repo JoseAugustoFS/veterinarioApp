@@ -1,4 +1,4 @@
-import { IPet } from "./interfaces/IPet.interface";
+import { IPet } from "../interfaces/IPet.interface";
 
 export class Pet implements IPet {
     constructor(
@@ -28,9 +28,9 @@ export class Pet implements IPet {
         }
     }
     public canShower(): boolean {
-        return true;
+        return this.type === "fish" ? false : true;
     }
     public canGrooming(): boolean {
-        return true;
+        return this.type === "fish" || this.type === "reptile" || this.type === "bird" ? false : true;
     }
 }

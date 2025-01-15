@@ -1,0 +1,44 @@
+<div class="box">
+    <p><strong> Preencha os dados do serviço </strong></p>
+    <form [formGroup]="addServiceForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="petOwner">Dono do Pet:</label>
+            <select id="petOwner" formControlName="petOwner" (change)="getPetsOfOwners()">
+                @for(owner of owners; track owner){
+                <option [value]="owner"> {{ owner }}</option>
+                }
+            </select>
+        </div>
+        <div>
+            <label for="petName">Nome do Pet:</label>
+            <select id="petName" formControlName="petName" (change)="choosePet()">
+                @for(pet of petsOwners; track pet.id){
+                <option [value]="pet.name"> {{ pet.name }}</option>
+                }
+            </select>
+        </div>
+        <div>
+            <label for="type">Tipo:</label>
+            <select id="type" formControlName="type">
+                <option value="consult"> Consulta</option>
+                <option value="surgery">Cirurgia</option>
+                <option value="vaccine">Vacina</option>
+                @if(petChoose){
+                    @if(petChoose.canShower()){
+                        <option value="bath">Banho</option>
+                    }@if(petChoose.canGrooming()){
+                        <option value="grooming">Tosa</option>
+                    }
+                }
+            </select>
+        </div>
+        <div>
+            <label for="description">Descrição:</label>
+            <input id="description" formControlName="description" type="text">
+        </div>
+        <button type="submit">Registrar Serviço</button>
+    </form>
+</div>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>X</button>
+</mat-dialog-actions>

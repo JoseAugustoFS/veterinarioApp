@@ -1,0 +1,40 @@
+@defer (on interaction(searchBox)) {
+<div class="search-form">
+    <form [formGroup]="searchPetForm" (ngSubmit)="onSubmit()">
+        <input placeholder="Nome" id="name" formControlName="name" type="text">
+
+        <select id="gender" formControlName="gender">
+            <option value="" disabled selected>Gênero</option>
+            <option value="M">Macho</option>
+            <option value="F">Fêmea</option>
+        </select>
+
+        <select id="type" formControlName="type">
+            <option value="" disabled selected>Tipo</option>
+            <option value="dog">Cachorro</option>
+            <option value="cat">Gato</option>
+            <option value="rabbit">Coelho</option>
+            <option value="bird">Ave</option>
+            <option value="fish">Peixe</option>
+            <option value="reptile">Réptil</option>
+        </select>
+
+        <input placeholder="Data de nascimento" id="dateBirth" formControlName="dateBirth" type="text" onfocusin="(this.type='date')" onfocusout="(this.type='text')" >
+
+        <input placeholder="Dono" id="owner" formControlName="owner" type="text">
+
+        <input placeholder="Raça" id="race" formControlName="race" type="text">
+
+        <input placeholder="Peso" id="weight" formControlName="weight" type="number">
+
+        <button type="submit">Pesquisar Pet</button>
+    </form>
+</div>
+}@placeholder {
+<div #searchBox class="search-button">
+    <p>
+        Pesquisar
+        <img class="search-icon" src="../../../../assets/svg/search.svg" alt="search">
+    </p>
+</div>
+}

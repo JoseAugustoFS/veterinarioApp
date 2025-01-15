@@ -33,8 +33,13 @@ mat-dialog-actions {
     color: #333;
 }
 
+
 .box form div {
     margin-bottom: 15px;
+    .alert {
+        font-size: small;
+        color: red;
+    }
 }
 
 .box label {

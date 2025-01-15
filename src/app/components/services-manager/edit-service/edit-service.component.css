@@ -1,5 +1,5 @@
 ::ng-deep .mat-mdc-dialog-surface {
-    --mdc-dialog-container-color: #c9e4d9;
+    --mdc-dialog-container-color: #c9dbe4;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -48,8 +48,7 @@ mat-dialog-actions {
     color: #555;
 }
 
-.box input,
-.box select {
+.box input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -59,7 +58,7 @@ mat-dialog-actions {
 }
 
 .box button {
-    background-color: #4CAF50;
+    background-color: #4c77af;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -68,7 +67,7 @@ mat-dialog-actions {
 }
 
 .box button:hover {
-    background-color: #45a049;
+    background-color: rgb(121, 164, 194);
 }
 
 .box input.ng-touched.ng-invalid,

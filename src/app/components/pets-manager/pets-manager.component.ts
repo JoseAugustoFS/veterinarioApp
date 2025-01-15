@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Pet } from '../../models/pet.model';
-import { IPet } from '../../models/interfaces/IPet.interface';
+import { IPet } from '../../interfaces/IPet.interface';
 
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { AddPetComponent } from './add-pet/add-pet.component';
@@ -8,10 +8,11 @@ import { EditPetComponent } from './edit-pet/edit-pet.component';
 import { DeletePetComponent } from './delete-pet/delete-pet.component';
 import { PetsService } from '../../services/pets.service';
 import { LoadingBoxComponent } from '../loading-box/loading-box.component';
+import { SearchPetComponent } from './search-pet/search-pet.component';
 
 @Component({
   selector: 'app-pets-manager',
-  imports: [MatDialogModule],
+  imports: [MatDialogModule, SearchPetComponent],
   templateUrl: './pets-manager.component.html',
   styleUrl: './pets-manager.component.css',
   

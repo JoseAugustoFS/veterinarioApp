@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Pool, neon } from "@neondatabase/serverless";
-import { IPet } from '../models/interfaces/IPet.interface';
+import { IPet } from '../interfaces/IPet.interface';
 import { Pet } from '../models/pet.model';
 
 const sql = neon(import.meta.env.DATABASE_URL);
@@ -19,8 +19,23 @@ export class PetsService {
     const pets: IPet[] = data.map((petData: any) => {
       return new Pet(petData.id, petData.name, petData.gender, petData.type, new Date(petData.datebirth), petData.owner, petData.race, petData.weight);
     });
-    
     return pets;
+  }
+
+  public async getPetsByOwner(owner: string): Promise<IPet[]> {
+    const data = await sql`SELECT * FROM pets WHERE owner = ${owner};`;
+    const pets: IPet[] = data.map((petData: any) => {
+      return new Pet(petData.id, petData.name, petData.gender, petData.type, new Date(petData.datebirth), petData.owner, petData.race, petData.weight);
+    });
+    return pets;
+  }
+
+  public async getAllOwners(): Promise<string[]> {
+    const data = await sql`SELECT DISTINCT owner FROM pets;`;
+    const owners: string[] = data.map((petData) => {
+      return petData['owner'];
+    });
+    return owners;
   }
   
   public async addPet(pet: IPet): Promise<void> {
