@@ -68,4 +68,21 @@ export class PetsService {
     pool.end();
   }
 
+  public async searchPet(filter: {name: string, gender: string, type: string, owner: string, race: string, firstDate: string, lastDate: string, minWeight:number, maxWeight: number}): Promise<IPet[]> {
+    const data = await sql`
+      SELECT * FROM pets 
+      WHERE LOWER(name) LIKE ${'%' + filter.name.toLowerCase() + '%'} 
+      AND LOWER(gender) LIKE ${'%' + filter.gender.toLowerCase() + '%'} 
+      AND LOWER(type) LIKE ${'%' + filter.type.toLowerCase() + '%'} 
+      AND LOWER(owner) LIKE ${'%' + filter.owner.toLowerCase() + '%'} 
+      AND LOWER(race) LIKE ${'%' + filter.race.toLowerCase() + '%'}
+      AND datebirth BETWEEN ${filter.firstDate} AND ${filter.lastDate}
+      AND weight BETWEEN ${filter.minWeight} AND ${filter.maxWeight};
+    `;
+    const pets: IPet[] = data.map((petData: any) => {
+      return new Pet(petData.id, petData.name, petData.gender, petData.type, new Date(petData.datebirth), petData.owner, petData.race, petData.weight);
+    });
+    return pets;
+  }
+
 }

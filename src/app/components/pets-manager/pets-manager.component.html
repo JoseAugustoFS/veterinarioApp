@@ -1,7 +1,7 @@
 <h1>Nesta área é possível ver, cadastrar, editar e exluir pets no sistema.</h1>
 <div class="container">
     <button mat-raised-button (click)="addPet()">Cadastrar Pet</button>
-    <app-search-pet/>
+    <app-search-pet (filter)="filterPet($event)"/>
     <h2>Pets cadastrados:</h2>
     <div class="pets">
         @defer (when pets) {

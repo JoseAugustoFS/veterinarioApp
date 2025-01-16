@@ -105,5 +105,11 @@ export class PetsManagerComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {});
   }
 
+  public filterPet(filter: {name: string, gender: string, type: string, owner: string, race: string, firstDate: string, lastDate: string, minWeight:number, maxWeight: number}){
+    this.PetsService.searchPet(filter).then((res) => {
+      this.pets = res;
+      this.pets.sort((a, b) => a.id - b.id);
+    });
+  }
 
 }

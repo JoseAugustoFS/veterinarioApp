@@ -1,35 +1,73 @@
 @defer (on interaction(searchBox)) {
-<div class="search-form">
-    <form [formGroup]="searchPetForm" (ngSubmit)="onSubmit()">
-        <input placeholder="Nome" id="name" formControlName="name" type="text">
+<form [formGroup]="searchPetForm" (ngSubmit)="onSubmit()">
+    <div class="search-form">
+        
+        <div>
+            <p>Nome</p>
+            <input id="name" formControlName="name" type="text">
+        </div>
 
-        <select id="gender" formControlName="gender">
-            <option value="" disabled selected>Gênero</option>
-            <option value="M">Macho</option>
-            <option value="F">Fêmea</option>
-        </select>
+        <div>
+            <p>Gênero</p>
+            <select id="gender" formControlName="gender">
+                <option value="" disabled selected></option>
+                <option value="M">Macho</option>
+                <option value="F">Fêmea</option>
+            </select>
+        </div>
 
-        <select id="type" formControlName="type">
-            <option value="" disabled selected>Tipo</option>
-            <option value="dog">Cachorro</option>
-            <option value="cat">Gato</option>
-            <option value="rabbit">Coelho</option>
-            <option value="bird">Ave</option>
-            <option value="fish">Peixe</option>
-            <option value="reptile">Réptil</option>
-        </select>
+        <div>
+            <p>Tipo</p>
+            <select id="type" formControlName="type">
+                <option value="" disabled selected></option>
+                <option value="dog">Cachorro</option>
+                <option value="cat">Gato</option>
+                <option value="rabbit">Coelho</option>
+                <option value="bird">Ave</option>
+                <option value="fish">Peixe</option>
+                <option value="reptile">Réptil</option>
+            </select>
+        </div>
 
-        <input placeholder="Data de nascimento" id="dateBirth" formControlName="dateBirth" type="text" onfocusin="(this.type='date')" onfocusout="(this.type='text')" >
+        <div>
+            <p>Dono</p>
+            <input id="owner" formControlName="owner" type="text">
+        </div>
 
-        <input placeholder="Dono" id="owner" formControlName="owner" type="text">
+        <div>
+            <p>Raça</p>
+            <input id="race" formControlName="race" type="text">
+        </div>
+        <div>
+            <p>A data de nascimento está entre:</p>
+            <label for="firstDate">Data inical</label>
+            <input id="firstDate" formControlName="firstDate" type="date">
 
-        <input placeholder="Raça" id="race" formControlName="race" type="text">
+            <label for="lastDate">Data final</label>
+            <input id="lastDate" formControlName="lastDate" type="date">
+            @if(!isDateValid()){
+            <p class="alert">A data final não pode ser antes da inicial.</p>
+            }
+        </div>
 
-        <input placeholder="Peso" id="weight" formControlName="weight" type="number">
+        <div>
+            <p>O peso está entre:</p>
+            <label for="minWeight">Peso mínimo</label>
+            <input placeholder="Peso mínimo" id="minWeight" formControlName="minWeight" type="number">
 
+            <label for="maxWeight">Peso máximo</label>
+            <input placeholder="Peso máximo" id="maxWeight" formControlName="maxWeight" type="number">
+            @if(searchPetForm.value.minWeight>searchPetForm.value.maxWeight){
+            <p class="alert">O peso mínimo não pode ser maior que o máximo</p>
+            }
+        </div>
+
+    </div>
+    <div class="form-button">
         <button type="submit">Pesquisar Pet</button>
-    </form>
-</div>
+        <button (click)="clearFilter()">Limpar Filtro</button>
+    </div>
+</form>
 }@placeholder {
 <div #searchBox class="search-button">
     <p>
