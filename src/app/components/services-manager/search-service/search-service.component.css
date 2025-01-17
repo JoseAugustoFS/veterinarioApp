@@ -27,7 +27,7 @@ form {
 }
 
 .search-form {
-    background-color: #c9e4d9;
+    background-color: #c9dbe4;
     display: flex;
     flex-direction: row;
     align-items: end;
@@ -60,7 +60,7 @@ form {
 
     button {
         margin: 10px;
-        background-color: #4CAF50;
+        background-color: #4c77af;
         color: white;
         padding: 5px 10px;
         border: none;
@@ -69,7 +69,7 @@ form {
     }
 
     button:hover {
-        background-color: #45a049;
+        background-color: rgb(121, 164, 194);
     }
 }
 

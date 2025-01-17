@@ -1,0 +1,57 @@
+@defer (on interaction(searchBox)) {
+<form [formGroup]="searchServiceForm" (ngSubmit)="onSubmit()">
+    <div class="search-form">
+
+        <div>
+            <p>Nome do Pet</p>
+            <input id="petName" formControlName="petName" type="text">
+        </div>
+
+        <div>
+            <p>Dono do Pet</p>
+            <input id="petOwner" formControlName="petOwner" type="text">
+        </div>
+
+        <div>
+            <p>Tipo</p>
+            <select id="type" formControlName="type">
+                <option value="" disabled selected></option>
+                <option value="consult"> Consulta</option>
+                <option value="surgery">Cirurgia</option>
+                <option value="vaccine">Vacina</option>
+                <option value="bath">Banho</option>
+                <option value="grooming">Tosa</option>
+            </select>
+        </div>
+
+        <div>
+            <p>Descrição</p>
+            <input id="description" formControlName="description" type="text">
+        </div>
+
+        <div>
+            <p>A data do serviço está entre:</p>
+            <label for="firstDate">Data inical</label>
+            <input id="firstDate" formControlName="firstDate" type="date">
+
+            <label for="lastDate">Data final</label>
+            <input id="lastDate" formControlName="lastDate" type="date">
+            @if(!isDateValid()){
+            <p class="alert">A data final não pode ser antes da inicial.</p>
+            }
+        </div>
+
+    </div>
+    <div class="form-button">
+        <button type="submit">Pesquisar Serviço</button>
+        <button (click)="clearFilter()">Limpar Filtro</button>
+    </div>
+</form>
+}@placeholder {
+<div #searchBox class="search-button">
+    <p>
+        Pesquisar
+        <img class="search-icon" src="../../../../assets/svg/search.svg" alt="search">
+    </p>
+</div>
+}

@@ -52,4 +52,19 @@ export class ServicesService {
     pool.end();
   }
 
+  public async searchService(filter: {petName: string, petOwner: string, type: string, description: string, firstDate: string, lastDate: string}): Promise<IService[]> {
+      const data = await sql`
+        SELECT * FROM services 
+        WHERE LOWER(petname) LIKE ${'%' + filter.petName.toLowerCase() + '%'} 
+        AND LOWER(petowner) LIKE ${'%' + filter.petOwner.toLowerCase() + '%'} 
+        AND LOWER(type) LIKE ${'%' + filter.type.toLowerCase() + '%'} 
+        AND LOWER(description) LIKE ${'%' + filter.description.toLowerCase() + '%'} 
+        AND date BETWEEN ${filter.firstDate} AND ${filter.lastDate};
+      `;
+      const services: IService[] = data.map((serviceData: any) => {
+        return new Service(serviceData.id, serviceData.type, serviceData.description, new Date(serviceData.date), serviceData.petid, serviceData.petname, serviceData.petowner)
+      });
+      return services;
+    }
+
 }

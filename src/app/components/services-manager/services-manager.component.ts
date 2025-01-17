@@ -9,10 +9,12 @@ import { DatePipe } from '@angular/common';
 import { AddServiceComponent } from './add-service/add-service.component';
 import { EditServiceComponent } from './edit-service/edit-service.component';
 import { DeleteServiceComponent } from './delete-service/delete-service.component';
+import { PetsService } from '../../services/pets.service';
+import { SearchServiceComponent } from './search-service/search-service.component';
 
 @Component({
   selector: 'app-services-manager',
-  imports: [MatDialogModule, DatePipe],
+  imports: [MatDialogModule, DatePipe, SearchServiceComponent],
   templateUrl: './services-manager.component.html',
   styleUrl: './services-manager.component.css'
 })
@@ -22,12 +24,24 @@ export class ServicesManagerComponent implements OnInit {
   readonly dialogEditService = inject(MatDialog);
   readonly dialogDeleteService = inject(MatDialog);
   readonly dialogLoading = inject(MatDialog);
-  private ServicesService = inject(ServicesService);
-  public services: Service[] | null = null;
 
-  ngOnInit(): void {
+  private ServicesService = inject(ServicesService);
+  private PetsService = inject(PetsService);
+
+  public services: Service[] | null = null;
+  public hasPets?: boolean
+
+  async ngOnInit(): Promise<void> {
     this.loadServices();
+    this.hasPets = await this.checkAmountPets().then(res => {return res;});
   }
+
+  private async checkAmountPets(): Promise<boolean> {
+    return this.PetsService.getAllPets().then(pets => {
+      return pets.length ? true : false;
+    });
+  }
+
 
   private async loadServices(): Promise<void> {
     this.services = await this.ServicesService.getAllServices();
@@ -54,37 +68,37 @@ export class ServicesManagerComponent implements OnInit {
 
   public editService(service: IService): void {
     const dialogRef = this.dialogEditService.open(EditServiceComponent, {
-          width: '320px',
-          height: '280px',
-          data: service
+      width: '320px',
+      height: '280px',
+      data: service
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadingBox();
+        this.ServicesService.updateService(service.id, result).then(() => {
+          this.loadServices();
+          this.dialogLoading.closeAll();
         });
-    
-        dialogRef.afterClosed().subscribe(result => {
-          if(result) {
-            this.loadingBox();
-            this.ServicesService.updateService(service.id, result).then(() => {
-              this.loadServices();
-              this.dialogLoading.closeAll();
-            });
-          }
-        });
+      }
+    });
   }
 
   public deleteService(service: IService): void {
     const dialogRef = this.dialogDeleteService.open(DeleteServiceComponent, {
-          width: '300px',
-          height: '200px'
-        });
-    
-        dialogRef.afterClosed().subscribe(result => {
-          if(result) {
-            this.loadingBox();
-            this.ServicesService.deleteService(service.id).then(() => {
-                this.loadServices();
-                this.dialogLoading.closeAll();
-            })
-          }
-        });
+      width: '300px',
+      height: '200px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadingBox();
+        this.ServicesService.deleteService(service.id).then(() => {
+          this.loadServices();
+          this.dialogLoading.closeAll();
+        })
+      }
+    });
   }
 
   public getImage(type: string): string {
@@ -100,6 +114,11 @@ export class ServicesManagerComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => { });
   }
 
-
+  public filterService(filter: {petName: string, petOwner: string, type: string, description: string, firstDate: string, lastDate: string}){
+    this.ServicesService.searchService(filter).then((res) => {
+      this.services = res;
+      this.services.sort((a, b) => a.id - b.id);
+    });
+  }
 
 }

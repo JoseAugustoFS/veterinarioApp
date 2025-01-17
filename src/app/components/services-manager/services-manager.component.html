@@ -1,10 +1,11 @@
 <h1>Nesta área é possível ver, registrar, editar e exluir serviços no sistema.</h1>
 <div class="container">
-    @if(false){
+    @if(hasPets){
         <button mat-raised-button (click)="addService()">Registrar Serviço</button>
     }@else{
         <p>Nenhum pet cadastrado no sistemas, portando não pode registar serviços.</p>
     }
+    <app-search-service (filter)="filterService($event)"/>
     <h2>Serviços registrados:</h2>
     <div class="services">
         @defer (when services) {

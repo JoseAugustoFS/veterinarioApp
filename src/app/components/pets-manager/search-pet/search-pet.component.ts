@@ -35,7 +35,7 @@ export class SearchPetComponent {
 
   public isDateValid(): boolean{
     if(this.searchPetForm.value.firstDate && this.searchPetForm.value.lastDate){
-      return this.searchPetForm.value.firstDate < this.searchPetForm.value.lastDate
+      return this.searchPetForm.value.firstDate <= this.searchPetForm.value.lastDate
     }
     this.searchPetForm.value.firstDate = this.searchPetForm.value.firstDate ? this.searchPetForm.value.firstDate : '1950-01-01'
     this.searchPetForm.value.lastDate = this.searchPetForm.value.lastDate ? this.searchPetForm.value.lastDate : new Date().toISOString().split('T')[0]
