@@ -1,17 +1,18 @@
 .start {
-    
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .text {
     padding-left: 10px;
     padding-right: 20px;
+    max-width: 600px;
 }
 
 .text p {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     font-size: 20px;
     text-align: justify;
 }
@@ -19,54 +20,123 @@
 h1 {
     font-size: 40px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
-.image {
-    margin-top: 50px;
+.image img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
 .title {
     margin: 60px;
+    text-align: center;
 }
 
 .boxes {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-
+    justify-content: center;
 }
 
 .box {
     box-sizing: border-box;
-    max-width: 45%;
-    margin: 0 auto;
-    justify-content: center;
     padding: 15px;
     border-radius: 50px;
     display: flex;
-}
-
-#pets {
-    margin-inline: 400px;
-}
-
-#pet {
-    flex: 1 1 calc(50% - 20px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 45%;
+    max-width: 400px;
     background-color: lightgreen;
 }
 
 .box img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
 }
 
 .box p {
-    padding-top: 45px;
-    padding-left: 15px;
+    padding-top: 15px;
     font-size: 30px;
 }
 
 #service {
     background-color: lightblue;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    .text p {
+        font-size: 18px;
+    }
+
+    .title {
+        margin: 40px 20px;
+    }
+
+    .box {
+        width: 48%;
+        max-width: 300px;
+    }
+
+    .box img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .box p {
+        font-size: 20px;
+        padding-top: 20px;
+    }
+
+    .start {
+        flex-direction: row;
+        text-align: center;
+    }
+
+    .image img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .box {
+        width: 58%;
+        padding: 10px;
+        border-radius: 20px;
+    }
+
+    .box img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .box p {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .text p {
+        font-size: 16px;
+    }
+
+    .title {
+        margin: 30px;
+    }
+
+    .image {
+        margin-top: 20px;
+    }
 }
